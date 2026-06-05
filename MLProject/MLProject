@@ -1,0 +1,25 @@
+name: MBG_Sentiment
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      data_path:
+        type: str
+        default: "data_mbg_preprocessing/data_mbg_preprocessing.csv"
+      max_features:
+        type: int
+        default: 5000
+      C:
+        type: float
+        default: 1.0
+      solver:
+        type: str
+        default: "lbfgs"
+    command: >
+      python modelling.py
+        --data_path {data_path}
+        --max_features {max_features}
+        --C {C}
+        --solver {solver}
