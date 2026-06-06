@@ -21,8 +21,6 @@ parser.add_argument("--C",            type=float, default=1.0)
 parser.add_argument("--solver",       default="lbfgs")
 args = parser.parse_args()
 
-mlflow.set_experiment("MBG_Sentiment_CI")
-
 print(f"[1/4] Memuat data dari: {args.data_path}")
 df = pd.read_csv(args.data_path)
 df = df.dropna(subset=["text_processed", "label"])
@@ -33,7 +31,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 print(f"      Train: {len(X_train)} | Test: {len(X_test)}")
 
-with mlflow.start_run(run_name="CI_LogisticRegression"):
+with mlflow.start_run():
     mlflow.log_param("max_features", args.max_features)
     mlflow.log_param("C",            args.C)
     mlflow.log_param("solver",       args.solver)
@@ -83,6 +81,6 @@ with mlflow.start_run(run_name="CI_LogisticRegression"):
     mlflow.log_artifact(report_path)
 
     mlflow.sklearn.log_model(pipeline, "model")
-    print(f"Run selesai! Run ID: {mlflow.active_run().info.run_id}")
+    print(f"Run selesai!")
 
 print("Training CI selesai!")

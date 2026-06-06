@@ -17,9 +17,4 @@ entry_points:
       solver:
         type: str
         default: "lbfgs"
-    command: >
-      python modelling.py
-        --data_path {data_path}
-        --max_features {max_features}
-        --C {C}
-        --solver {solver}
+    command: "python modelling.py --data_path {data_path} --max_features {max_features} --C {C} --solver {solver}"
