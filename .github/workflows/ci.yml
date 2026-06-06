@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   train:
     runs-on: ubuntu-latest
@@ -35,12 +38,7 @@ jobs:
       - name: Run MLflow Project
         run: |
           cd MLProject
-          mlflow run . \
-            --env-manager=local \
-            -P data_path=data_mbg_preprocessing/data_mbg_preprocessing.csv \
-            -P max_features=5000 \
-            -P C=1.0 \
-            -P solver=lbfgs
+          mlflow run . --env-manager=local -P data_path=data_mbg_preprocessing/data_mbg_preprocessing.csv -P max_features=5000 -P C=1.0 -P solver=lbfgs
 
       - name: Upload Artifacts to GitHub
         uses: actions/upload-artifact@v4
